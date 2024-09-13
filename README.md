@@ -58,7 +58,7 @@ python autocrop.py --video_path /path/to/video.mp4 --out /path/to/output.mp4
 - `crop_video_with_ffmpeg()`: Uses FFmpeg to perform the actual video cropping.
 
 ## 🔧 Requirements
-
+- MacOS / *nix
 - Python 3.9+
 - OpenCV
 - NumPy
@@ -66,7 +66,9 @@ python autocrop.py --video_path /path/to/video.mp4 --out /path/to/output.mp4
 
 ## 📝 Note
 
-This script is designed to work best with videos that have a clear distinction between the main content and the background (e.g., screen recordings, presentations). Results may vary for complex video scenes.
+This script is designed to work best with videos that have a clear distinction between the main content and the background (i.e. Youtube Short or Instagram Reel) where there is branding and clutter surrounding the video. Results may vary for complex video scenes.
+
+PR's welcome
 
 ## 🙌 Credits
 

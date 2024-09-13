@@ -58,14 +58,23 @@ def detect_background_color(frames):
         borders.extend(frame[-1, :])  # Bottom border
         borders.extend(frame[:, 0])  # Left border
         borders.extend(frame[:, -1])  # Right border
-    return np.median(borders)
 
-def detect_video_area(frames, background_color):
+    background_color = np.median(borders)
+    is_white_background = background_color > 240  # Threshold for considering background as white
+
+    return background_color, is_white_background
+
+def detect_video_area(frames, background_color, is_white_background):
     masks = []
     for frame in frames:
         if len(frame.shape) == 3:  # Color image
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        mask = frame > (background_color + 10)
+
+        if is_white_background:
+            mask = frame < (background_color - 10)  # Invert the condition for white background
+        else:
+            mask = frame > (background_color + 10)
+
         masks.append(mask)
 
     combined_mask = np.logical_or.reduce(masks)
@@ -133,8 +142,10 @@ def process_video(video_path, output_path):
     cap.release()
 
     frames = sample_frames(video_path, num_samples=20)
-    background_color = detect_background_color(frames)
-    video_area = detect_video_area(frames, background_color)
+    background_color, is_white_background = detect_background_color(frames)
+    logging.info(f"Detected background color: {background_color}, Is white background: {is_white_background}")
+
+    video_area = detect_video_area(frames, background_color, is_white_background)
 
     if not video_area:
         logging.error("No suitable video area found")

@@ -11,11 +11,48 @@ Automagically crop a video clip within a video clip
 You know that feeling when you [spend 30 minutes looking for something](https://github.com/paulpierre/autocrop/blob/main/RESEARCH.MD) and realize "hm, no way no one has built it, if it's taking this long to find it.."
 And then you just build it? Yep
 
+## ⚡ Quickstart
+Let's do some quick showing vs telling w/ an example:
+
+❗ Note: This assumes you've ran through the setup below
+
+Lets take a look at [this meme](https://www.instagram.com/reel/C_JHU6QNhm3/?hl=en) instagram reel from [@memes](https://www.instagram.com/memes/)
+
+Here is the original video in the `./demo` directory:
+
+<video src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_john_cena.mp4" />
+
+We run `autocrop` with the following command:
+
+```bash
+python autocrop-cli.py --video_path ./demo/memes_ig_john_cena.mp4
+```
+
+And here is the output of `autocrop`:
+
+<video src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_john_cena_cropped.mp4" />
+
+This performs better on black backgrounds, you'll notice it defaulted to landscape vs square.
+
+Let's try black background with this meme:
+
+<video src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_southpark_poo.mp4" />
+```bash
+python autocrop-cli.py --video_path ./demo/memes_ig_southpark_poo.mp4
+```
+
+<video src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_southpark_poo_cropped.mp4" />
+
+Nice 👌 much better.
+
+
+
 ## 🌟 Features
 
 - Detects video content area automatically
 - Crops to standard aspect ratios (9:16, 16:9, 1:1)
 - Supports single video or batch processing
+- Supports all black and white backgrounds
 - Uses FFmpeg for high-quality video processing
 
 ## 🛠️ How It Works

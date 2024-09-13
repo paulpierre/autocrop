@@ -2,6 +2,3 @@ opencv-python
 numpy
 argparse
 logging
-random
-glob
-moviepy

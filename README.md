@@ -1,2 +1,73 @@
 # autocrop
 Automagically crop a video clip within a video clip
+
+```
+                     ██
+                     ██
+ ▄█▀██▄ ▀███  ▀███ ██████  ▄██▀██▄ ▄██▀██▀███▄███  ▄██▀██▄▀████████▄
+██   ██   ██    ██   ██   ██▀   ▀███▀  ██  ██▀ ▀▀ ██▀   ▀██ ██   ▀██
+ ▄█████   ██    ██   ██   ██     ███       ██     ██     ██ ██    ██
+██   ██   ██    ██   ██   ██▄   ▄███▄    ▄ ██     ██▄   ▄██ ██   ▄██
+▀████▀██▄ ▀████▀███▄ ▀████ ▀█████▀ █████▀▄████▄    ▀█████▀  ██████▀
+Automatically detect crop area of any video // by @paulpierre on X
+                                                           ▄████▄
+```
+# 🎬 AutoCrop Video
+
+
+## Overview
+You know that feeling when you spend 30 minutes looking for something and realize "hm, no way no one has built it, if it's taking this long to find it.."
+And then you just build it? Yep
+
+## 🌟 Features
+
+- Detects video content area automatically
+- Crops to standard aspect ratios (9:16, 16:9, 1:1)
+- Supports single video or batch processing
+- Uses FFmpeg for high-quality video processing
+
+## 🛠️ How It Works
+
+1. **Frame Sampling**: Randomly selects frames from the video for analysis.
+2. **Background Detection**: Identifies the background color of the video.
+3. **Content Area Detection**: Locates the main content area within the video frames.
+4. **Orientation Detection**: Determines if the content is portrait, landscape, or square.
+5. **Aspect Ratio Adjustment**: Adjusts the crop area to match the closest standard aspect ratio.
+6. **Video Cropping**: Uses FFmpeg to crop the video based on the detected area.
+
+## 🚀 Usage
+```bash
+bash
+# Process a single video
+python autocrop.py --video_path /path/to/video.mp4
+
+# Process all MP4 files in a directory
+python autocrop.py --video_dir /path/to/video/directory
+
+# Specify output path for single video processing
+python autocrop.py --video_path /path/to/video.mp4 --out /path/to/output.mp4
+```
+
+## 🧩 Main Components
+
+- `sample_frames()`: Extracts random frames from the video for analysis.
+- `detect_background_color()`: Determines the background color of the video.
+- `detect_video_area()`: Identifies the main content area within the video frames.
+- `determine_orientation()`: Classifies the video orientation based on aspect ratio.
+- `adjust_crop_to_ratio()`: Adjusts the crop area to match standard aspect ratios.
+- `crop_video_with_ffmpeg()`: Uses FFmpeg to perform the actual video cropping.
+
+## 🔧 Requirements
+
+- Python 3.9+
+- OpenCV
+- NumPy
+- FFmpeg
+
+## 📝 Note
+
+This script is designed to work best with videos that have a clear distinction between the main content and the background (e.g., screen recordings, presentations). Results may vary for complex video scenes.
+
+## 🙌 Credits
+
+Created by [@paulpierre](https://twitter.com/paulpierre) on X (Twitter)

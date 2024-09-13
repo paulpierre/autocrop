@@ -17,7 +17,7 @@ Lets take a look at [this meme](https://www.instagram.com/reel/C_JHU6QNhm3/?hl=e
 
 Here is the original video in the `./demo` directory:
 
-<a href="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_john_cena.mp4">
+<a href="https://imgur.com/L1gL7ue">
     <img src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_john_cena.png" alt="John Cena uncropped" style="width: 300px;">
 </a>
 
@@ -29,7 +29,7 @@ python autocrop-cli.py --video_path ./demo/memes_ig_john_cena.mp4
 
 And here is the output of `autocrop`:
 
-<a href="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_john_cena_cropped.mp4">
+<a href="https://imgur.com/OUsMztx">
     <img src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_john_cena_cropped.png" alt="John Cena cropped" style="width: 300px;">
 </a>
 
@@ -37,14 +37,14 @@ This performs better on black backgrounds, you'll notice it defaulted to landsca
 
 Let's try black background with this meme:
 
-<a href="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_southpark_poo.mp4">
+<a href="https://imgur.com/kD2jSOF">
     <img src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_southpark_poo.png" alt="Southpark uncropped" style="width: 300px;">
 </a>
 
 ```bash
 python autocrop-cli.py --video_path ./demo/memes_ig_southpark_poo.mp4
 ```
-<a href="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_southpark_poo_cropped.mp4">
+<a href="https://imgur.com/eHFcM1S">
     <img src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_southpark_poo_cropped.png" alt="Southpark Cropped" style="width: 300px;">
 </a>
 

@@ -17,8 +17,9 @@ Lets take a look at [this meme](https://www.instagram.com/reel/C_JHU6QNhm3/?hl=e
 
 Here is the original video in the `./demo` directory:
 
-<video src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_john_cena.mp4" controls="controls" style="max-width: 100%;">
-</video>
+<a href="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_john_cena.mp4">
+    <img src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_john_cena.png" alt="John Cena uncropped" style="width: 300px;">
+</a>
 
 We run `autocrop` with the following command:
 
@@ -28,22 +29,24 @@ python autocrop-cli.py --video_path ./demo/memes_ig_john_cena.mp4
 
 And here is the output of `autocrop`:
 
-<video src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_john_cena_cropped.mp4" controls="controls" style="max-width: 100%;">
-</video>
+<a href="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_john_cena_cropped.mp4">
+    <img src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_john_cena_cropped.png" alt="John Cena cropped" style="width: 300px;">
+</a>
 
 This performs better on black backgrounds, you'll notice it defaulted to landscape vs square.
 
 Let's try black background with this meme:
 
-<video src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_southpark_poo.mp4" controls="controls" style="max-width: 100%;">
-</video>
+<a href="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_southpark_poo.mp4">
+    <img src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_southpark_poo.png" alt="Southpark uncropped" style="width: 300px;">
+</a>
 
 ```bash
 python autocrop-cli.py --video_path ./demo/memes_ig_southpark_poo.mp4
 ```
-
-<video src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_southpark_poo_cropped.mp4" controls="controls" style="max-width: 100%;">
-</video>
+<a href="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_southpark_poo_cropped.mp4">
+    <img src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_southpark_poo_cropped.png" alt="Southpark Cropped" style="width: 300px;">
+</a>
 
 Nice 👌 much better.
 

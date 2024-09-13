@@ -1,4 +1,4 @@
-# autocrop
+# 🎬 autocrop
 Automagically crop a video clip within a video clip
 
 ![AutoCrop](https://github.com/paulpierre/autocrop/raw/main/autocrop.png)

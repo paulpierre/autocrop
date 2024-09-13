@@ -8,7 +8,7 @@ Automagically crop a video clip within a video clip
 
 
 ## Overview
-You know that feeling when you spend 30 minutes looking for something and realize "hm, no way no one has built it, if it's taking this long to find it.."
+You know that feeling when you [spend 30 minutes looking for something](https://github.com/paulpierre/autocrop/blob/main/RESEARCH.MD) and realize "hm, no way no one has built it, if it's taking this long to find it.."
 And then you just build it? Yep
 
 ## 🌟 Features

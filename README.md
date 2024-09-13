@@ -4,9 +4,6 @@ Automagically crop a video clip within a video clip
 ![AutoCrop](https://github.com/paulpierre/autocrop/raw/main/autocrop.png)
 
 
-# 🎬 AutoCrop Video
-
-
 ## Overview
 You know that feeling when you [spend 30 minutes looking for something](https://github.com/paulpierre/autocrop/blob/main/RESEARCH.MD) and realize "hm, no way no one has built it, if it's taking this long to find it.."
 And then you just build it? Yep
@@ -44,7 +41,6 @@ python autocrop-cli.py --video_path ./demo/memes_ig_southpark_poo.mp4
 <video src="https://github.com/paulpierre/autocrop/blob/main/demo/memes_ig_southpark_poo_cropped.mp4" />
 
 Nice 👌 much better.
-
 
 
 ## 🌟 Features

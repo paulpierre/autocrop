@@ -35,17 +35,36 @@ And then you just build it? Yep
 5. **Aspect Ratio Adjustment**: Adjusts the crop area to match the closest standard aspect ratio.
 6. **Video Cropping**: Uses FFmpeg to crop the video based on the detected area.
 
+## 🏗️ Setup
+
+```bash
+git clone https://github.com/paulpierre/autocrop.git
+cd autocrop
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+```
+
 ## 🚀 Usage
+
+### CLI
 ```bash
 bash
 # Process a single video
-python autocrop.py --video_path /path/to/video.mp4
+python autocrop-cli.py --video_path /path/to/video.mp4
 
 # Process all MP4 files in a directory
-python autocrop.py --video_dir /path/to/video/directory
+python autocrop-cli.py --video_dir /path/to/video/directory
 
 # Specify output path for single video processing
-python autocrop.py --video_path /path/to/video.mp4 --out /path/to/output.mp4
+python autocrop-cli.py --video_path /path/to/video.mp4 --out /path/to/output.mp4
+```
+
+### Python
+```python
+import autocrop
+
+autocrop.process_video("/path/to/video.mp4", "/path/to/output.mp4")
 ```
 
 ## 🧩 Main Components

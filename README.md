@@ -93,13 +93,13 @@ python autocrop-cli.py --video_dir /path/to/video/directory
 python autocrop-cli.py --video_path /path/to/video.mp4 --out /path/to/output.mp4
 
 # Autocrop and add audio from mp3 on top of original audio
-python autocrop.py --video_path /path/to/video.mp4 --out /path/to/output.mp4 --audio-track /path/to/audio.mp3 --audio-volume 0.4
+python autocrop-cli.py --video_path /path/to/video.mp4 --out /path/to/output.mp4 --audio-track /path/to/audio.mp3 --audio-volume 0.4
 
 # Silences original audio
-python autocrop.py --video_path /path/to/video.mp4 --out /path/to/output.mp4 --silence-original-audio
+python autocrop-cli.py --video_path /path/to/video.mp4 --out /path/to/output.mp4 --silence-audio
 
 # Silence original audio and replace with new audio
-python autocrop.py --video_path /path/to/video.mp4 --out /path/to/output.mp4 --silence-original-audio --audio-track /path/to/audio.mp3 --audio-volume 0.4
+python autocrop-cli.py --video_path /path/to/video.mp4 --out /path/to/output.mp4 --silence-audio --audio-track /path/to/audio.mp3 --audio-volume 0.4
 ```
 
 ### Python

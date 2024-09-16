@@ -57,6 +57,7 @@ Nice 👌 much better.
 - Crops to standard aspect ratios (9:16, 16:9, 1:1)
 - Supports single video or batch processing
 - Supports all black and white backgrounds
+- Supports silencing original audio, adding audio from mp3
 - Uses FFmpeg for high-quality video processing
 
 ## 🛠️ How It Works
@@ -82,7 +83,6 @@ pip3 install -r requirements.txt
 
 ### CLI
 ```bash
-bash
 # Process a single video
 python autocrop-cli.py --video_path /path/to/video.mp4
 
@@ -91,6 +91,15 @@ python autocrop-cli.py --video_dir /path/to/video/directory
 
 # Specify output path for single video processing
 python autocrop-cli.py --video_path /path/to/video.mp4 --out /path/to/output.mp4
+
+# Autocrop and add audio from mp3 on top of original audio
+python autocrop.py --video_path /path/to/video.mp4 --out /path/to/output.mp4 --audio-track /path/to/audio.mp3 --audio-volume 0.4
+
+# Silences original audio
+python autocrop.py --video_path /path/to/video.mp4 --out /path/to/output.mp4 --silence-original-audio
+
+# Silence original audio and replace with new audio
+python autocrop.py --video_path /path/to/video.mp4 --out /path/to/output.mp4 --silence-original-audio --audio-track /path/to/audio.mp3 --audio-volume 0.4
 ```
 
 ### Python

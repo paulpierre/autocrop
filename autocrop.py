@@ -125,15 +125,43 @@ def adjust_crop_to_ratio(crop, target_ratio, frame_width, frame_height):
 
     return x, y, w, h
 
-def crop_video_with_ffmpeg(video_path, output_path, x, y, w, h):
+def crop_video_with_ffmpeg(video_path, output_path, x, y, w, h, audio_track=None, audio_volume=0.1, silence_original_audio=False):
     logging.info(f"Cropping video: x={x}, y={y}, w={w}, h={h}")
-    ffmpeg_command = [
-        'ffmpeg', '-i', video_path, '-filter:v', f'crop={w}:{h}:{x}:{y}',
-        '-c:a', 'copy', output_path
-    ]
+    ffmpeg_command = ['ffmpeg']
+
+    # Input video file
+    ffmpeg_command.extend(['-i', video_path])
+
+    # Add audio track if specified
+    if audio_track:
+        ffmpeg_command.extend(['-i', audio_track])
+
+    # Video filter for cropping
+    filter_complex = f'[0:v]crop={w}:{h}:{x}:{y}[v]'
+
+    # Audio handling
+    if silence_original_audio:
+        if audio_track:
+            filter_complex += f';[1:a]volume={audio_volume}[a]'
+            ffmpeg_command.extend(['-map', '[v]', '-map', '[a]'])
+        else:
+            ffmpeg_command.extend(['-an'])
+    elif audio_track:
+        filter_complex += f';[1:a]volume={audio_volume}[a];[0:a][a]amix=inputs=2:duration=longest[aout]'
+        ffmpeg_command.extend(['-map', '[v]', '-map', '[aout]'])
+    else:
+        ffmpeg_command.extend(['-map', '[v]', '-map', '0:a'])
+
+    # Apply filter complex
+    ffmpeg_command.extend(['-filter_complex', filter_complex])
+
+    # Output file
+    ffmpeg_command.append(output_path)
+
+    logging.info(f"FFmpeg command: {' '.join(ffmpeg_command)}")
     subprocess.run(ffmpeg_command, check=True)
 
-def process_video(video_path, output_path):
+def process_video(video_path, output_path, audio_track=None, audio_volume=0.1, silence_original_audio=False):
     logging.info(f"Processing video: {video_path}")
 
     cap = cv2.VideoCapture(video_path)
@@ -157,5 +185,5 @@ def process_video(video_path, output_path):
     logging.info(f"Detected video area orientation: {orientation}, aspect ratio: {w/h:.2f}")
 
     final_crop = adjust_crop_to_ratio(video_area, target_ratio, frame_width, frame_height)
-    crop_video_with_ffmpeg(video_path, output_path, *final_crop)
+    crop_video_with_ffmpeg(video_path, output_path, *final_crop, audio_track, audio_volume, silence_original_audio)
     logging.info(f"Video cropped and saved to {output_path}")

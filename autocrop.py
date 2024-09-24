@@ -32,7 +32,7 @@ ASPECT_RATIOS = {
 }
 
 # Define margin to increase crop area
-MARGIN = 0  # pixels
+MARGIN = 25  # pixels
 
 def sample_frames(video_path, num_samples=10):
     cap = cv2.VideoCapture(video_path)
@@ -65,6 +65,13 @@ def detect_background_color(frames):
     return background_color, is_white_background
 
 def detect_video_area(frames, background_color, is_white_background):
+    dominant_pixel_percentage = calculate_dominant_pixel_percentage(frames, background_color, is_white_background)
+    logging.info(f"Dominant pixel percentage: {dominant_pixel_percentage:.2f}%")
+
+    if dominant_pixel_percentage < 5:  # Adjust this threshold as needed
+        logging.info("Video appears to be full screen. Keeping original dimensions.")
+        return None
+
     masks = []
     for frame in frames:
         if len(frame.shape) == 3:  # Color image
@@ -158,11 +165,21 @@ def crop_video_with_ffmpeg(video_path, output_path, x, y, w, h, audio_track=None
     # Output file
     ffmpeg_command.append(output_path)
 
+    # # Ensure output path has .mp4 extension
+    # if not output_path.lower().endswith('.mp4'):
+    #     output_path = f"{os.path.splitext(output_path)[0]}.mp4"
+    # ffmpeg_command.append(output_path)
+
     logging.info(f"FFmpeg command: {' '.join(ffmpeg_command)}")
     subprocess.run(ffmpeg_command, check=True)
 
 def process_video(video_path, output_path, audio_track=None, audio_volume=0.1, silence_original_audio=False):
     logging.info(f"Processing video: {video_path}")
+
+    # Check if video file exists
+    if not os.path.exists(video_path):
+        logging.error(f"Video file does not exist: {video_path}")
+        return None
 
     cap = cv2.VideoCapture(video_path)
     frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -176,14 +193,48 @@ def process_video(video_path, output_path, audio_track=None, audio_volume=0.1, s
     video_area = detect_video_area(frames, background_color, is_white_background)
 
     if not video_area:
-        logging.error("No suitable video area found")
-        return
+        logging.info("No crop area detected. Keeping original dimensions.")
+        orientation = determine_orientation(frame_width, frame_height)
+        final_crop = (0, 0, frame_width, frame_height)
+    else:
+        x, y, w, h = video_area
+        orientation = determine_orientation(w, h)
+        target_ratio = ASPECT_RATIOS[orientation]
+        logging.info(f"Detected video area orientation: {orientation}, aspect ratio: {w/h:.2f}")
+        final_crop = adjust_crop_to_ratio(video_area, target_ratio, frame_width, frame_height)
 
-    x, y, w, h = video_area
-    orientation = determine_orientation(w, h)
-    target_ratio = ASPECT_RATIOS[orientation]
-    logging.info(f"Detected video area orientation: {orientation}, aspect ratio: {w/h:.2f}")
-
-    final_crop = adjust_crop_to_ratio(video_area, target_ratio, frame_width, frame_height)
     crop_video_with_ffmpeg(video_path, output_path, *final_crop, audio_track, audio_volume, silence_original_audio)
-    logging.info(f"Video cropped and saved to {output_path}")
+    logging.info(f"Video processed and saved to {output_path}")
+
+    return {
+        'orientation': orientation,
+        'crop': final_crop,
+        'output_path': output_path,
+        'input_path': video_path,
+        'background_color': "#000000" if not is_white_background else "#FFFFFF",
+        'width': final_crop[2],
+        'height': final_crop[3],
+        'ratio': final_crop[2] / final_crop[3],
+        'audio_track': audio_track,
+        'audio_volume': audio_volume,
+        'silence_original_audio': silence_original_audio,
+        'is_white_background': is_white_background is True,
+        'is_black_background':  is_white_background is False
+    }
+
+def calculate_dominant_pixel_percentage(frames, background_color, is_white_background):
+    total_pixels = 0
+    dominant_pixels = 0
+    threshold = 10  # Adjust this value as needed
+
+    for frame in frames:
+        if len(frame.shape) == 3:  # Color image
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+        total_pixels += frame.size
+        if is_white_background:
+            dominant_pixels += np.sum(frame > (background_color - threshold))
+        else:
+            dominant_pixels += np.sum(frame < (background_color + threshold))
+
+    return (dominant_pixels / total_pixels) * 100
